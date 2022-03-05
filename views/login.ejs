@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="csrf-token" content="iE9ekCgdnQA0TrMoimlPtuG4Z1BiVuCSSsmvroXo">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>coinmage | Growing Profits</title>
+    <%- include('./style2'); %>
+
+
+   <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap CSS File -->
+    <link href="https://ac.coinagestun.net/temp/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Libraries CSS Files -->
+        <link href="https://ac.coinagestun.net/temp/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+        <link href="https://ac.coinagestun.net/temp/lib/animate/animate.min.css" rel="stylesheet">
+        <link href="https://ac.coinagestun.net/temp/lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+        <link href="https://ac.coinagestun.net/temp/lib/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
+        <link href="https://ac.coinagestun.net/temp/lib/icofont/icofont.min.css" rel="stylesheet">
+        <link href="https://ac.coinagestun.net/temp/lib/jquery/magnific-popup.css" rel="stylesheet">
+        <link href="https://ac.coinagestun.net/temp/lib/aos/aos.css" rel="stylesheet">
+        <link href="https://ac.coinagestun.net/temp/lib/venobox/venobox.css" rel="stylesheet">
+        <link href="https://ac.coinagestun.net/temp/lib/icofont/icofont.min.css" rel="stylesheet">
+
+        <link href="css/style2.css" rel="stylesheet">
+        
+        <!-- JavaScript Libraries -->
+        
+        <script src="https://ac.coinagestun.net/temp/lib/jquery/jquery.min.js"></script>
+        <script src="https://ac.coinagestun.net/temp/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="https://ac.coinagestun.net/temp/lib/jquery.easing/jquery.easing.min.js"></script>
+        <script src="https://ac.coinagestun.net/temp/lib/php-email-form/validate.js"></script>
+        <script src="https://ac.coinagestun.net/temp/lib/waypoints/jquery.waypoints.min.js"></script>
+        <script src="https://ac.coinagestun.net/temp/lib/counterup/counterup.min.js"></script>
+        <script src="https://ac.coinagestun.net/temp/lib/isotope-layout/isotope.pkgd.min.js"></script>
+        <script src="https://ac.coinagestun.net/temp/lib/venobox/venobox.min.js"></script>
+        <script src="https://ac.coinagestun.net/temp/lib/owl.carousel/owl.carousel.min.js"></script>
+        <script src="https://ac.coinagestun.net/temp/lib/aos/aos.js"></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+
+        <!-- Template Main Javascript File -->
+        <script src="https://ac.coinagestun.net/temp/js/main.js"></script>
+
+</head>
+<body class="d-flex flex-column h-100 auth-page">
+    <!-- ======= Loginup Section ======= -->
+    <section class="auth">
+        <div class="container">
+            <div class="row justify-content-center user-auth">
+                <div class="col-12 col-md-6 col-lg-6 col-sm-10 col-xl-6 ">
+                    <div class="text-center mb-4">
+                        <h3><a href="" class="auth__logo img-fluid"><b>COINMAGE</b>  </a></h3>
+                            
+                                                </div>
+                                            
+                    
+                    <div class="card ">
+                        <h1 class="text-center mt-3"> User Login</h1>
+                        <%- include ('./partials/messages') %>
+                        <form method="POST" action="/users/login" class="mt-5 card__form">
+                            <input type="hidden" name="_token" value="iE9ekCgdnQA0TrMoimlPtuG4Z1BiVuCSSsmvroXo"> 
+                            
+                            <div class="form-group ">
+                                                                <label for="email">Email address</label>
+                                <input type="email" class="form-control" name ="email" value="" id="email" placeholder="name@example.com" required>
+                            </div>
+                            <div class="form-group">
+                                                                <label for="password">Password</label>
+                                <input type="password" class="form-control" name="password" id="password" placeholder="Enter Password" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <button class="btn btn-primary mt-4" type="submit">Login</button>
+                            </div>
+    
+                            <div class="text-center mb-3">
+                                <small class=" text-center mb-2">Forget your Password <a href="https://ac.coinagestun.net/password/reset" class="link ml-1">Reset.</a> </small>
+                                <small class=" text-center">Dont have an Account yet? <a href="/users/register" class="link ml-1">Sign up.</a> </small>
+                            </div>
+                            <div class="text-center">
+                                <hr>
+                                <small class=" text-center">&copy; Copyright  2022 &nbsp; COINMAGE &nbsp; All Rights Reserved.</small>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    </section>
+</body>
+</html>

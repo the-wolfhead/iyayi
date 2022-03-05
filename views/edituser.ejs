@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="QmU7HxVQgR7Y6kFA9pFybCxIpewKi6WgL63Dx9vQ">
+
+    <title>COINMAGE | Account Transactions History</title>
+    <link rel="icon" href="https://coinagestun.net/cloud/app/images/ahwg.jpg" type="image/png"/>
+
+	<!-- Fonts and icons -->
+	<script src="https://ac.coinagestun.net/dash/js/plugin/webfont/webfont.min.js"></script>
+<!-- Sweet Alert -->
+<script src="https://ac.coinagestun.net/dash/js/plugin/sweetalert/sweetalert.min.js "></script>
+	<!-- CSS Files -->
+	<link rel="stylesheet" href="https://ac.coinagestun.net/dash/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://ac.coinagestun.net/dash/css/fonts.min.css">
+	<link rel="stylesheet" href="https://ac.coinagestun.net/dash/css/atlantis.min.css">
+	<link rel="stylesheet" href="https://ac.coinagestun.net/dash/css/customs.css">
+	<link rel="stylesheet" href="https://ac.coinagestun.net/dash/css/style.css">
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.21/af-2.3.5/b-1.6.3/b-flash-1.6.3/b-html5-1.6.3/b-print-1.6.3/r-2.2.5/datatables.min.css"/>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 
+</head>
+<body data-background-color="dark">
+    <section class="auth ">
+        <div class="container">
+            <div class="row justify-content-center user-auth">
+                <div class="col-12 col-md-6 col-lg-6 col-sm-10 col-xl-6">
+                    <div class="text-center mb-4">
+                         <h3><a href="" class="auth__logo img-fluid">ADMIN</a></h3>
+                                                </div>
+                    <div >
+                        <h1 class="text-center mt-3"> Edit Account</h1>
+                        
+
+                        <form method="POST" action="/users/edituser/
+                        
+                        
+                        <%= id %>" class="mt-5 card__form">
+                            <input type="hidden" name="_token" value="BaqfmK5a8p7F5p5BB3kElsWq5w3btOpRvMqmd4X5"> 
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                                                      <label for="first">First Name</label>
+                                  <input type="text" class="form-control mr-2" name="first" value="<%= typeof first != 'undefined' ? first : '' %>" id="first" placeholder="Enter First Name">
+                                </div>
+                                <div class="form-group col-md-6">
+                                                                      <label for="last">Last name</label>
+                                  <input type="text" class="form-control" name="last" value="<%= typeof last != 'undefined' ? last : '' %>" id="last" placeholder="Enter last name">
+                                </div>
+                            </div>
+
+                            <div class="form-group ">
+                                                                <label for="email">Email address</label>
+                                <input type="text" class="form-control" name="email" value="<%= typeof email != 'undefined' ? email : '' %>"
+    " id="email" placeholder="name@example.com">
+                            </div>
+
+                            <div class="form-group ">
+                                                                <label for="phone">Phone Number</label>
+                                <input type="mumber" class="form-control" name="phone" value="<%= typeof phone != 'undefined' ? phone : '' %>" id="phone" placeholder="Enter Phone number">
+                            </div>
+                            <div class="form-group ">
+                                <label for="phone">Charge Percentage</label>
+<input type="mumber" class="form-control" name="charge_per" value="<%= typeof charge_per != 'undefined' ? charge_per : '' %>" id="phone" placeholder="Enter Phone number">
+</div>
+<label for="phone">Fixed Charge</label>
+<input type="mumber" class="form-control" name="charge_fix" value="<%= typeof charge_fix != 'undefined' ? charge_fix : '' %>" id="phone" placeholder="Enter Phone number">
+</div>
+                            <div class="form-row">
+                                                                <div class="form-group col-md-6">
+                                    <label for="password">Deposit</label>
+                                    <input type="number" class="form-control" name="deposit" value="<%= typeof deposit != 'undefined' ? deposit : '' %>" id="password" placeholder="Enter Password">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="confirm-password">Balance</label>
+                                    <input type="number" class="form-control" name="balance" value="<%= typeof balance != 'undefined' ? balance : '' %>" id="confirm-password" placeholder="Confirm Password">
+                                </div>
+                                <div class="form-group ">
+                                    <label for="bonus">Bonus</label>
+    <input type="mumber" class="form-control" name="bonus" value="<%= typeof bonus != 'undefined' ? bonus : '' %>" id="bonus" placeholder="Enter Phone number">
+    </div>
+    <div class="form-group ">
+        <label for="phone">Profit</label>
+<input type="mumber" class="form-control" name="profit" value="<%= typeof profit != 'undefined' ? profit : '' %>" id="profit" placeholder="Enter Profit">
+</div>
+                            </div>
+                            
+    
+                            <div class="form-group">
+                                <button class="btn btn-primary mt-4" type="submit">Edit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    </section>
+
+</body>
+</html>

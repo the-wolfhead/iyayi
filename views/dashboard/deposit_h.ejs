@@ -1,0 +1,547 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="QmU7HxVQgR7Y6kFA9pFybCxIpewKi6WgL63Dx9vQ">
+
+    <title>COINMAGE | Deposits</title>
+    <link rel="icon" href="https://coinagestun.net/cloud/app/images/ahwg.jpg" type="image/png"/>
+
+	<!-- Fonts and icons -->
+	<script src="https://ac.coinagestun.net/dash/js/plugin/webfont/webfont.min.js"></script>
+<!-- Sweet Alert -->
+<script src="https://ac.coinagestun.net/dash/js/plugin/sweetalert/sweetalert.min.js "></script>
+	<!-- CSS Files -->
+	<link rel="stylesheet" href="https://ac.coinagestun.net/dash/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">">
+	<link rel="stylesheet" href="https://ac.coinagestun.net/dash/css/atlantis.min.css">
+	<link rel="stylesheet" href="https://ac.coinagestun.net/dash/css/customs.css">
+	<link rel="stylesheet" href="https://ac.coinagestun.net/dash/css/style.css">
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.21/af-2.3.5/b-1.6.3/b-flash-1.6.3/b-html5-1.6.3/b-print-1.6.3/r-2.2.5/datatables.min.css"/>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 
+</head>
+<body data-background-color="dark">
+    <div id="app">
+         <!--PayPal-->
+        <script>
+        
+            // Add your client ID and secret
+            var PAYPAL_CLIENT = 'AVBtU3h5-r3jo4RQdreB1k1oceT9fUNzJRcCtiST9TtVrEfYBVIGLf_5Ew3NJ0XMQiJ_l3Us3Br9fnmi';
+            var PAYPAL_SECRET = 'EOFG7L81QhUKSoBlIYacAaI-0CplcXnf2n-nDZ9j6xyj3zOFTpVbhoitbvlcqSELx5RYbsQ12sxw3ZOd';
+            
+            // Point your server to the PayPal API
+            var PAYPAL_ORDER_API = 'https://api.paypal.com/v2/checkout/orders/';
+        
+            </script>
+            
+            <script
+            src="https://www.paypal.com/sdk/js?client-id=AVBtU3h5-r3jo4RQdreB1k1oceT9fUNzJRcCtiST9TtVrEfYBVIGLf_5Ew3NJ0XMQiJ_l3Us3Br9fnmi">
+        </script>
+        
+        <!--/PayPal-->
+            
+        <!--Start of Tawk.to Script-->
+        <script type="text/javascript">
+        {}
+        
+        </script>
+        <!--End of Tawk.to Script-->
+        <div class="wrapper">
+                    <div class="main-header">
+    <!-- Logo Header -->
+    <div class="logo-header" data-background-color="dark">
+        <a href="/" class="logo" style="font-size: 27px; color:#fff;">
+            COINMAGE
+        </a>
+        <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon">
+                <i class="fa fa-bars"></i>
+            </span>
+        </button>
+        <button class="topbar-toggler more"><i class="fa fa-ellipsis-v"></i></button>
+        <div class="nav-toggle">
+            <button class="btn btn-toggle toggle-sidebar">
+                <i class="fa fa-bars"></i>
+            </button>
+        </div>
+    </div>
+    <!-- End Logo Header -->
+
+    <!-- Navbar Header -->
+    <nav class="navbar navbar-header navbar-expand-lg" data-background-color="dark">
+        
+        <div class="container-fluid">
+            <ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
+              
+                <li class="nav-item dropdown hidden-caret">
+                    <a class="nav-link dropdown-toggle" href="#" id="notifDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-bell"></i>
+                        
+                    </a>
+                    <ul class="dropdown-menu notif-box animated fadeIn" aria-labelledby="notifDropdown">
+                        
+                        
+                        <li>
+                            <a class="see-all" href="https://ac.coinagestun.net/dashboard/notification">See all notifications<i class="fa fa-angle-right"></i> </a>
+                        </li>
+                    </ul>
+                </li>
+                                <li class="nav-item dropdown hidden-caret">
+                    <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
+                        <i class="fas fa-user"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user animated fadeIn">
+                        <div class="dropdown-user-scroll scrollbar-outer">
+                            <li>
+                                <a class="dropdown-item" href="https://ac.coinagestun.net/dashboard/changepassword">Change Password</a>
+                                <a class="dropdown-item" href="/users/dashboard/profile">Update Account</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/users/logout"
+                                    onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();">
+                                    Logout
+                                    </a>
+                                <form id="logout-form" action="/users/logout" method="POST" style="display: none;">
+                                    <input type="hidden" name="_token" value="QmU7HxVQgR7Y6kFA9pFybCxIpewKi6WgL63Dx9vQ">
+                                </form>
+                            </li>
+                        </div>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!-- End Navbar -->
+</div>        <!-- Stored in resources/views/child.blade.php -->
+
+<!-- Sidebar -->
+<div class="sidebar sidebar-style-2" data-background-color="dark">
+    <div class="sidebar-wrapper scrollbar scrollbar-inner">
+        <div class="sidebar-content">
+            <div class="user">
+                <div class="info">
+                    <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
+                        <span>
+                            
+                            
+                            <span class="caret"></span>
+                        </span>
+                    </a>
+                    <div class="clearfix"></div>
+                    <div class="collapse in" id="collapseExample">
+                        <ul class="nav">
+                            <li>
+                                <a href="/users/dashboard/profile">
+                                    <span class="link-collapse">Account Settings</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <ul class="nav nav-primary">
+                <li class="nav-item active">
+                    <a href="/users/dashboard">
+                        <i class="fas fa-home"></i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a data-toggle="collapse" href="#bases">
+                        <i class="fas fa-user"></i>
+                        <p>Account</p>
+                        <span class="caret"></span>
+                    </a>
+                    <div class="collapse" id="bases">
+                        <ul class="nav nav-collapse">
+                            <li>
+                                <a href="/users/dashboard/withdraw">
+                                    <span class="sub-item">Withdrawal Info</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/users//users/dashboard/notif">
+                                    <span class="sub-item">Notifications</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="/users/dashboard/support">
+                        <i class="fa fa-life-ring" aria-hidden="true"></i>
+                        <p>Support</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/users/dashboard/pl_record">
+                        <i class="fa fa-signal " aria-hidden="true"></i>
+                        <p>P/L record</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/users/dashboard/transact">
+                        <i class="fa fa-briefcase " aria-hidden="true"></i>
+                        <p>Transactions history</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a data-toggle="collapse" href="#dept">
+                        <i class="fas fa-credit-card"></i>
+                        <p>Deposit/Withdrawal</p>
+                        <span class="caret"></span>
+                    </a>
+                    <div class="collapse" id="dept">
+                        <ul class="nav nav-collapse">
+                            <li>
+                                <a href="/users/dashboard/deposit_h">
+                                    <span class="sub-item">Deposits</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/users/dashboard/withdraw_h">
+                                    <span class="sub-item">Withdrawal</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+               
+                </li>
+                <li class="nav-item">
+                    <a data-toggle="collapse" href="#mpack">
+                        <i class="fas fa-cubes"></i>
+                        <p>Packages</p>
+                        <span class="caret"></span>
+                    </a>
+                    <div class="collapse" id="mpack">
+                        <ul class="nav nav-collapse">
+                            <li>
+                                <a href="/users/dashboard/mplans">
+                                    <span class="sub-item">Investment Plans</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/myplans">
+                                    <span class="sub-item">My Packages</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>  
+                <li class="nav-item">
+                    <a href="/users/dashboard/referuser">
+                        <i class="fa fa-recycle " aria-hidden="true"></i>
+                        <p>Refer Users</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- End Sidebar -->
+<!-- Verify Modal -->
+
+<div class="modal fade" id="verifyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-dark">
+            <h5 class="modal-title text-light" style="text-align:center;">KYC verification - Upload documents below to get verified.</h5>
+                <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body bg-dark">
+                <form style="padding:3px;" role="form" method="post" action="https://ac.coinagestun.net/dashboard/savevdocs"  enctype="multipart/form-data">
+                    <label class="text-light">Valid identity card. (e.g. Drivers licence, international passport or any government approved document).</label>
+                    <input type="file" class="form-control bg-dark text-light" name="id" required><br>
+                    <label class="text-light">Passport photogragh</label>
+                    <input type="file" class="form-control bg-dark text-light" name="passport" required><br>
+                   <input type="hidden" name="_token" value="QmU7HxVQgR7Y6kFA9pFybCxIpewKi6WgL63Dx9vQ">
+                   <input type="submit" class="btn btn-light" value="Submit documents">
+               </form>
+        </div>
+    </div>
+</div>
+</div>
+<!-- /Verify Modal -->        <div class="main-panel bg-dark">
+			<div class="content bg-dark">
+				<div class="page-inner">
+					<div class="mt-2 mb-4">
+					<h1 class="title1 text-light">Your deposits</h1>
+					</div>
+							
+										<div class="row py-3 mb-4">
+						<div class="col">
+							<a class="btn btn-primary" href="#" data-toggle="modal" data-target="#depositModal"><i class="fa fa-plus"></i> New deposit</a>
+						</div>
+					</div>
+					<div class="row mb-5">
+					<div class="col text-center card p-4 bg-dark">
+							<div class="bs-example widget-shadow table-responsive" data-example-id="hoverable-table"> 
+							<table  class="UserTable table table-hover text-light"> 
+									<thead> 
+										<tr> 
+											<th>ID</th> 
+											<th>Amount</th>
+											<th>Payment mode</th>
+											<th>Status</th> 
+											<th>Date created</th>
+										</tr> 
+									</thead> 
+									<tbody> 
+																			</tbody> 
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Deposit Modal -->
+			<div id="depositModal" class="modal fade" role="dialog">
+				<div class="modal-dialog">
+  
+				  <!-- Modal content-->
+				  <div class="modal-content">
+					<div class="modal-header bg-dark">
+					  <h4 class="modal-title text-light">Make new deposit</h4>
+					  <button type="button" class="close text-light" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body bg-dark">
+						  <form style="padding:3px;" role="form" method="post" action="https://ac.coinagestun.net/dashboard/deposit">
+								 <input style="padding:5px;" class="form-control text-light bg-dark" placeholder="Enter amount here" type="text" name="amount" required><br/>
+								 
+								 <input type="hidden" name="_token" value="QmU7HxVQgR7Y6kFA9pFybCxIpewKi6WgL63Dx9vQ">
+								 <input type="submit" class="btn btn-light" value="Continue">
+						 </form>
+					</div>
+				  </div>
+				</div>
+			  </div>
+			  <!-- /deposit Modal -->
+			
+			
+			<!-- Delete Subscription Modal -->
+			<div id="delsubmodal" class="modal fade" role="dialog">
+				<div class="modal-dialog">
+				  <!-- Modal content-->
+				  <div class="modal-content">
+					<div class="modal-header bg-dark">
+					  <h4 class="modal-title text-light">Delete MT4 Details</h4>
+					  <button type="button" class="close text-light" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body bg-dark p-3">
+						<h5 class="text-light">Your subscription has already started, send an Email to contactus@COINMAGE.net to have your MT4 Details Deleted.</h5>
+					</div>
+				  </div>
+				</div>
+			  </div>
+			  <!-- /deposit Modal -->
+			
+		
+
+
+					  <!-- Withdrawal Modal -->
+		  <div id="withdrawalModal" class="modal fade" role="dialog">
+			<div class="modal-dialog">
+
+			  <!-- Modal content-->
+			  <div class="modal-content">
+				<div class="modal-header bg-dark">
+				  <h4 class="modal-title text-light">Payment will be sent to your recieving address.</h4>
+				  <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body bg-dark">
+					  <form style="padding:3px;" role="form" method="post" action="https://ac.coinagestun.net/dashboard/withdrawal">
+							 <input style="padding:5px;" class="form-control bg-dark text-light" placeholder="Enter amount here" type="text" name="amount" required><br/>
+							 
+							 <input type="hidden" name="_token" value="QmU7HxVQgR7Y6kFA9pFybCxIpewKi6WgL63Dx9vQ">
+							 <input type="submit" class="btn btn-light" value="Submit">
+					 </form>
+				</div>
+			  </div>
+			</div>
+		  </div>
+		  <!-- /Withdrawals Modal -->
+
+		
+
+			
+
+		<!-- Subscription Payment modal -->
+			<div class="modal fade" id="SubpayModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header bg-dark">
+					
+						<h4 class="modal-title text-light">Subscription Payment</h4>
+						<button type="button" class="close text-light" data-dismiss="modal">&times;</button>
+			      </div>
+
+				<form role="form" method="post" action="https://ac.coinagestun.net/dashboard/deposit" id="priceform">
+				<div class="modal-body bg-dark">
+					
+					<h5 class="text-light">Duration</h5>
+						<select class="form-control bg-dark text-light" onchange="calcAmount(this)" name="duration" class="duration" id="duratn">
+							<option value="default">Select duration</option>
+							<option>Monthly</option>
+							<option>Quaterly</option>
+							<option>Yearly</option>
+						</select><br>
+						<h5 class="text-light">Amount to Pay</h5>
+						<input class="form-control subamount bg-dark text-light" type="text" id="amount" disabled><br/>
+						<input id="amountpay" type="hidden" name="amount">
+						<input type="hidden" value="Subscription Trading" name="pay_type">
+						<input type="hidden" name="_token" value="QmU7HxVQgR7Y6kFA9pFybCxIpewKi6WgL63Dx9vQ">
+				</div>
+				<div class="modal-footer bg-dark">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-primary">Pay Now</button>
+				</div>
+				</div>
+				</form>
+
+				<script type="text/javascript">
+				function calcAmount(sub) {
+					if(sub.value=="Quaterly"){
+						var amount = document.getElementById('amount');
+						var amountpay = document.getElementById('amountpay');
+						amount.value = '&#36;20';
+						amountpay.value = '20';
+					}if(sub.value=="Yearly"){
+						var amount = document.getElementById('amount');
+						var amountpay = document.getElementById('amountpay');
+						amount.value = '&#36;30';
+						amountpay.value = '30';
+					}if(sub.value=="Monthly"){
+						var amount = document.getElementById('amount');
+						var amountpay = document.getElementById('amountpay');
+						amount.value = '&#36;10';
+						amountpay.value = '10';
+					}
+				}
+				</script>
+			</div>
+			</div>
+			<!-- Subscription Payment modal -->
+			
+			
+		<!-- Submit MT4 MODAL modal -->
+			<div id="submitmt4modal" class="modal fade" role="dialog">
+			  <div class="modal-dialog">
+			    <!-- Modal content-->
+			    <div class="modal-content">
+					<div class="modal-header bg-dark">
+						<h4 class="modal-title text-light">Submit your MT4 Login Details</h4>
+						<button type="button" class="close text-light" data-dismiss="modal">&times;</button>
+			      </div>
+			     	<div class="modal-body bg-dark">
+              			<form role="form" method="post" action="https://ac.coinagestun.net/dashboard/savemt4details">
+							  
+							  <h5 class="text-light ">MT4 ID*:</h5>
+							<input class="form-control bg-dark text-light"  type="text" name="userid" required><br/>
+							<h5 class="text-light ">MT4 Password*:</h5>
+							<input style="padding:5px;" class="form-control bg-dark text-light"  type="text" name="pswrd" required><br/>
+							<h5 class="text-light ">Account Type:</h5>
+							<input  class="form-control bg-dark text-light" Placeholder="E.g. Standard" type="text" name="acntype" required><br/>	
+							<h5 class="text-light ">Currency*:</h5>
+							<input  class="form-control bg-dark text-light" Placeholder="E.g. USD" type="text" name="currency" required><br/>
+							<h5 class="text-light ">Leverage*:</h5>
+							<input  class="form-control bg-dark text-light" Placeholder="E.g. 1:500"  type="text" name="leverage" required><br/>
+							<h5 class="text-light ">Server*:</h5>
+							<input  class="form-control bg-dark text-light" Placeholder="E.g. HantecGlobal-live"  type="text" name="server" required><br/>
+							<h5 class="text-light ">Subscription Duration:</h5>
+							<select class="form-control bg-dark text-light" name="duration" class="duration">
+								<option value="default">Select duration</option>
+								<option>Monthly</option>
+								<option>Quaterly</option>
+								<option>Yearly</option>
+							</select><br>
+
+					   		<input type="hidden" name="_token" value="QmU7HxVQgR7Y6kFA9pFybCxIpewKi6WgL63Dx9vQ">
+					   		<input type="submit" class="btn btn-primary" value="Submit">
+					   </form>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			<!-- /plans Modal -->
+	
+			<footer class="footer bg-dark text-light">
+                    <div class="container-fluid">
+                        <div class="row copyright text-center text-align-center">
+                            <p>All Rights Reserved &copy; COINMAGE 2022</p>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </div>
+
+    <!--   Core JS Files   -->
+	<script src="https://ac.coinagestun.net/dash/js/core/jquery.3.2.1.min.js "></script>
+	<script src="https://ac.coinagestun.net/dash/js/core/popper.min.js"></script>
+	<script src="https://ac.coinagestun.net/dash/js/core/bootstrap.min.js "></script>
+	<script src="https://ac.coinagestun.net/dash/js/customs.js"></script>
+	
+	<!-- jQuery UI -->
+	<script src="https://ac.coinagestun.net/dash/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+	<script src="https://ac.coinagestun.net/dash/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
+
+	<!-- jQuery Scrollbar -->
+	<script src="https://ac.coinagestun.net/dash/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js "></script>
+
+	<!-- jQuery Sparkline -->
+	<script src="https://ac.coinagestun.net/dash/js/plugin/jquery.sparkline/jquery.sparkline.min.js "></script>
+
+	<!-- Sweet Alert -->
+	<script src="https://ac.coinagestun.net/dash/js/plugin/sweetalert/sweetalert.min.js "></script>
+	<!-- Bootstrap Notify -->
+	<script src="https://ac.coinagestun.net/dash/js/plugin/bootstrap-notify/bootstrap-notify.min.js "></script>
+	
+	<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.21/af-2.3.5/b-1.6.3/b-flash-1.6.3/b-html5-1.6.3/b-print-1.6.3/r-2.2.5/datatables.min.js"></script>
+
+	<!-- Atlantis JS -->
+	<script src="https://ac.coinagestun.net/dash/js/atlantis.min.js"></script>
+	<script src="https://ac.coinagestun.net/dash/js/atlantis.js"></script>
+	<script type="text/javascript">
+		var badWords = [ 
+			'<!--Start of Tawk.to Script-->',
+			'<script type="text/javascript">', 
+			'<!--End of Tawk.to Script-->'
+					];
+		$(':input').on('blur', function(){
+			var value = $(this).val();
+			$.each(badWords, function(idx, word){
+			value = value.replace(word, '');
+			});
+			$(this).val( value);
+		});
+	</script>
+	 <script>
+		$(document).ready( function () {
+			$('#ShipTable').DataTable({
+				order: [ [0, 'desc'] ]
+			});
+			$(".dataTables_length select").addClass("bg-dark text-light");
+			$(".dataTables_filter input").addClass("bg-dark text-light");
+		} );
+	</script>
+	<script>
+		$(document).ready( function () {
+			$('.UserTable').DataTable({
+				order: [ [0, 'desc'] ]
+			});
+			$(".dataTables_length select").addClass("bg-dark text-light");
+			$(".dataTables_filter input").addClass("bg-dark text-light");
+		} );
+	</script>
+	
+	 
+</body>
+</html>
+
