@@ -272,7 +272,7 @@ connection.query('UPDATE users SET ? WHERE id='+user_id, user, function(err, res
 router.post('/login',(req,res)=>{
     var email = req.body.email;
 var password = req.body.password;
-if ((email == 'admin@coinmagus.com')&&(password =='admin01')){
+if ((email == 'admin@SwiftXchange.com')&&(password =='admin01')){
     res.redirect('/users/admin');
 }
 else{
