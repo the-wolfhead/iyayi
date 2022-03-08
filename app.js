@@ -41,6 +41,7 @@ app.use(expressValidator());
 //Routes
 app.use('/',require('./routes/index'));
 app.use('/users',require('./routes/users'));
+app.use(express.static(path.join(__dirname, "/views/CSS")));
 const { PORT=3000, LOCAL_ADDRESS='0.0.0.0' } = process.env
 app.listen(PORT, LOCAL_ADDRESS, () => {
   
