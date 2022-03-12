@@ -12,6 +12,9 @@ router.get('/login',(req,res)=>{
 router.get('/dashboard/notif',(req,res)=>{
     res.render('dashboard/notif');
 })
+router.get('/dashboard/payment',(req,res)=>{
+    res.render('dashboard/payment');
+})
 router.get('/dashboard/mplans',(req,res)=>{
     var sql = "SELECT * FROM users WHERE";
         con.query(sql, function (err, result) {
@@ -401,7 +404,11 @@ router.get('/logout',(req,res)=>{
             if (err) throw err;});
     } 
  )
- router.post('dashboard/deposit_h')
+ router.post('dashboard/deposit_h', (req, res)=> {
+      var deposit= req.body.amount;
+      res.redirect('/users/dashboard/payment')
+
+ } )
 module.exports  = router;
 
 
