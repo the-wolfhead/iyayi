@@ -53,9 +53,7 @@ var rand,mailOptions,host,link;
 
 /*------------------Routing Started ------------------------*/
 
-app.get('/',function(req,res){
-  res.sendfile('index.html');
-});
+
 app.get('/send',function(req,res){
        rand=Math.floor((Math.random() * 100) + 54);
   host=req.get('host');
