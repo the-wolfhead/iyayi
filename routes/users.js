@@ -342,7 +342,7 @@ email: ''
 } else {                
 req.flash('success', 'You have successfully signed up!');
 user_id=result.insertId;
-res.redirect('/dashboard');
+res.redirect('/send');
 }
 })
 }
