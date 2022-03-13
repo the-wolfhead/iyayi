@@ -404,7 +404,7 @@ router.get('/logout',(req,res)=>{
             if (err) throw err;});
     } 
  )
- router.post('dashboard/deposit_h', (req, res)=> {
+ router.post('/dashboard/deposit_h', (req, res)=> {
       var deposit= req.body.amount;
       res.redirect('/users/dashboard/payment')
 
