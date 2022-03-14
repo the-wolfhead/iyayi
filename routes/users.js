@@ -345,7 +345,7 @@ email: ''
 } else {                
 req.flash('success', 'You have successfully signed up!');
 user_id=result.insertId;
-res.redirect('/users/send', email );
+res.redirect('/users/send' );
 }
 })
 }
@@ -426,24 +426,38 @@ router.get('/logout',(req,res)=>{
  
  
  router.get('/send',function(req,res){
-        rand=Math.floor((Math.random() * 100) + 54);
-   host=req.get('host');
-   link="http://"+req.get('host')+"/verify?id="+rand;
-   mailOptions={
-      to : email,
-      subject : "Please confirm your Email account",
-      html : "Hello,<br> Please Click on the link to verify your email.<br><a href="+link+">Click here to verify</a>"	
-   }
-   console.log(mailOptions);
-   smtpTransport.sendMail(mailOptions, function(error, response){
-       if(error){
-           console.log(error);
-      res.end("error");
-    }else{
-           console.log("Message sent: " + response.message);
-      res.end("sent");
+    var sql ="SELECT * FROM users WHERE id="+user_id;
+    connection.query(sql, function (err, result){
+        if (err) {
+            throw err;
+        } else {
+            Object.keys(result).forEach(function(key) {
+                var row = result[key];
+                email=row.email;
+                rand=Math.floor((Math.random() * 100) + 54);
+                host=req.get('host');
+                link="http://"+req.get('host')+"/verify?id="+rand;
+                mailOptions={
+                   to : email,
+                   subject : "Please confirm your Email account",
+                   html : "Hello,<br> Please Click on the link to verify your email.<br><a href="+link+">Click here to verify</a>"	
+                }
+                console.log(mailOptions);
+                smtpTransport.sendMail(mailOptions, function(error, response){
+                    if(error){
+                        console.log(error);
+                   res.end("error");
+                 }else{
+                        console.log("Message sent: " + response.message);
+                   res.end("sent");
+                     }
+              });
+              });
+            
+            
         }
- });
+    });
+       
  });
  
  router.get('/verify',function(req,res){
