@@ -4,7 +4,9 @@ const router = express.Router();
 const date = require('date-and-time');
 var connection  = require('../lib/db');
 var otherConnection = require('../lib/db');
+var randtoken = require('rand-token');
 
+var nodemailer = require("nodemailer");
 //login handle
 router.get('/login',(req,res)=>{
     res.render('login');
@@ -325,6 +327,7 @@ bonus: 10,
 charge_per: 10,
 charge_fix: 2,
 }
+var email = req.body.email;
 connection.query('INSERT INTO users SET ?', user, function(err, result)  {
 //if(err) throw err
 if (err) {
@@ -342,7 +345,7 @@ email: ''
 } else {                
 req.flash('success', 'You have successfully signed up!');
 user_id=result.insertId;
-res.redirect('/send');
+res.redirect('/users/send', email );
 }
 })
 }
@@ -372,7 +375,7 @@ router.get('/logout',(req,res)=>{
     res.redirect('/welcome')
  })
  router.post('/logout',(req,res)=>{
-    res.redirect('/ q`1q')
+    res.redirect('/')
  })
  router.post('/dashboard/withdraw_h',(req,res)=>{
       //No errors were found.  Passed Validation!
@@ -409,6 +412,62 @@ router.get('/logout',(req,res)=>{
       res.redirect('/users/dashboard/payment')
 
  } )
+ var smtpTransport = nodemailer.createTransport({
+    service: "Gmail",
+    auth: {
+        user: "swift.trading.crypto@gmail.com",
+        pass: "Milano12345"
+    }
+ });
+ var rand,mailOptions,host,link;
+ /*------------------SMTP Over-----------------------------*/
+ 
+ /*------------------Routing Started ------------------------*/
+ 
+ 
+ router.get('/send',function(req,res){
+        rand=Math.floor((Math.random() * 100) + 54);
+   host=req.get('host');
+   link="http://"+req.get('host')+"/verify?id="+rand;
+   mailOptions={
+      to : email,
+      subject : "Please confirm your Email account",
+      html : "Hello,<br> Please Click on the link to verify your email.<br><a href="+link+">Click here to verify</a>"	
+   }
+   console.log(mailOptions);
+   smtpTransport.sendMail(mailOptions, function(error, response){
+       if(error){
+           console.log(error);
+      res.end("error");
+    }else{
+           console.log("Message sent: " + response.message);
+      res.end("sent");
+        }
+ });
+ });
+ 
+ router.get('/verify',function(req,res){
+ console.log(req.protocol+":/"+req.get('host'));
+ if((req.protocol+"://"+req.get('host'))==("http://"+host))
+ {
+   console.log("Domain is matched. Information is from Authentic email");
+   if(req.query.id==rand)
+   {
+      console.log("email is verified");
+      res.end("<h1>Email "+mailOptions.to+" is been Successfully verified");
+   }
+   else
+   {
+      console.log("email is not verified");
+      res.end("<h1>Bad Request</h1>");
+   }
+ }
+ else
+ {
+   res.end("<h1>Request is from unknown source");
+ }
+ });
+ 
 module.exports  = router;
 
 
