@@ -434,6 +434,7 @@ router.get('/logout',(req,res)=>{
             Object.keys(result).forEach(function(key) {
                 var row = result[key];
                 email=row.email;
+                id=row.id;
                 rand=Math.floor((Math.random() * 100) + 54);
                 host=req.get('host');
                 link="http://"+req.get('host')+"/users/verify?id="+rand;
@@ -468,7 +469,7 @@ router.get('/logout',(req,res)=>{
    if(req.query.id==rand)
    {
       console.log("email is verified");
-      res.render('dashboard');
+      res.redirect('dashboard');
    }
    else
    {
