@@ -436,7 +436,7 @@ router.get('/logout',(req,res)=>{
                 email=row.email;
                 rand=Math.floor((Math.random() * 100) + 54);
                 host=req.get('host');
-                link="http://"+req.get('host')+"/verify?id="+rand;
+                link="http://"+req.get('host')+"/users/verify?id="+rand;
                 mailOptions={
                    to : email,
                    subject : "Please confirm your Email account",
@@ -469,6 +469,7 @@ router.get('/logout',(req,res)=>{
    {
       console.log("email is verified");
       res.end("<h1>Email "+mailOptions.to+" is been Successfully verified");
+      res.render('dashboard');
    }
    else
    {
