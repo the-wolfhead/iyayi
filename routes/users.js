@@ -468,7 +468,6 @@ router.get('/logout',(req,res)=>{
    if(req.query.id==rand)
    {
       console.log("email is verified");
-      res.end("<h1>Email "+mailOptions.to+" is been Successfully verified");
       res.render('dashboard');
    }
    else
