@@ -449,7 +449,7 @@ router.get('/logout',(req,res)=>{
                    res.end("error");
                  }else{
                         console.log("Message sent: " + response.message);
-                   res.end("sent");
+                   res.render("sent");
                      }
               });
               });
