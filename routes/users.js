@@ -18,17 +18,9 @@ router.get('/dashboard/payment',(req,res)=>{
     res.render('dashboard/payment');
 })
 router.get('/dashboard/mplans',(req,res)=>{
-    var sql = "SELECT * FROM users WHERE";
-        con.query(sql, function (err, result) {
-            if (err) {
-                throw err;
-            } else {
-                obj = {print: result};
-                res.render('dashboard/mplans', {obj: obj});
-                
-            }
+         res.render('dashboard/mplans',);    
         });
-})
+
 router.get('/dashboard/pl_record',(req,res)=>{
     res.render('dashboard/pl_record');
 })
