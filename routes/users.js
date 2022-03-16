@@ -474,6 +474,10 @@ router.get('/logout',(req,res)=>{
    res.end("<h1>Request is from unknown source");
  }
  });
+
+ router.post('/dashboard/join', (req,res) =>{
+     res.redirect('/users/dashboard/deposit_h')
+ })
  
 module.exports  = router;
 
