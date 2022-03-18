@@ -3,6 +3,7 @@ const express = require('express');
 var mysql = require('mysql');
 var connection  = require('./lib/db');
 var otherConnection = require('./lib/db');
+var async = require('async'), connection;
 var nodemailer = require("nodemailer");
 const router = express.Router();
 var app = express();

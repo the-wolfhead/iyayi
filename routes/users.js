@@ -1,11 +1,12 @@
 //users.js in routes/users.js
 const express = require('express');
+var async = require('async'), connection;
 const router = express.Router();
 const date = require('date-and-time');
 var connection  = require('../lib/db');
+var pool  = require('../lib/db');
 var otherConnection = require('../lib/db');
 var randtoken = require('rand-token');
-
 var nodemailer = require("nodemailer");
 //login handle
 router.get('/login',(req,res)=>{
@@ -15,7 +16,8 @@ router.get('/dashboard/notif',(req,res)=>{
     res.render('dashboard/notif');
 })
 router.get('/dashboard/payment',(req,res)=>{
-    res.render('dashboard/payment');
+   
+    res.render('dashboard/payment', );
 })
 router.get('/dashboard/mplans',(req,res)=>{
          res.render('dashboard/mplans',);    
@@ -44,19 +46,36 @@ router.get('/dashboard/referuser',(req,res)=>{
 router.get('/dashboard/support',(req,res)=>{
     res.render('dashboard/support');
 })
-router.get('/dashboard/transact',(req,res)=>{
+router.get('/dashboard/transact',(req,res, next)=>{
     var sql ="SELECT * FROM notif WHERE user_id="+user_id;
     connection.query(sql, function (err, result){
         if (err) {
             throw err;
         } else {
-            obj = result;
-            res.render('dashboard/transact', {obj});
-            console.log(obj.first);
-        }
+            coli = result;
+                var sqo ="SELECT * FROM deposit WHERE user_id="+user_id;
+                connection.query(sqo, function (err, resu){
+                    if (err) {
+                        throw err;
+                    } else {
+                        obj = resu;
+                            res.render('dashboard/transact', {obj, coli});
+                        
+                        
+                        
+                    }
+                });
+            }
+            
+            
+
     });
+
+   
     
 })
+    
+
 router.get('/dashboard/withdraw_h',(req,res)=>{
     var sql ="SELECT * FROM users WHERE id="+user_id;
     connection.query(sql, function (err, result){
@@ -98,13 +117,13 @@ router.get('/register',(req,res)=>{
             
         });
         })
-        router.get('/deleteuser/(:id)', function(req, res, next){
+router.get('/deleteuser/(:id)', function(req, res, next){
             connection.query('DELETE FROM users WHERE id = ' + req.params.id, function(err, rows, fields) {
                 if (err) throw err;
                 res.redirect('/users/admin');
         })
     })
-        router.get('/edituser/(:id)', function(req, res, next){
+router.get('/edituser/(:id)', function(req, res, next){
             
                 connection.query('SELECT * FROM users WHERE id = ' + req.params.id, function(err, rows, fields) {
                     if(err) throw err
@@ -251,7 +270,7 @@ connection.query('UPDATE users SET ? WHERE id='+user_id, user, function(err, res
 })
 }
 })
-    router.get('/dashboard',(req,res)=>{
+router.get('/dashboard',(req,res)=>{
         var sql = "SELECT * FROM users WHERE id="+user_id;
         connection.query(sql, function (err, result) {
             if (err) {
@@ -298,7 +317,7 @@ else{
 }
   })
   //register post handle
-  router.post('/register',(req,res)=>{
+router.post('/register',(req,res)=>{
     req.assert('first', 'First Name is required').notEmpty()           //Validate name
 req.assert('last', 'Last Name is required').notEmpty()           //Validate name
 req.assert('country', 'Country is required').notEmpty()           //Validate name
@@ -378,8 +397,9 @@ router.get('/logout',(req,res)=>{
         console.log(charge);
         var perc = charge/100;
         var perco= amount*perc;
-        var deduct = perco+ charg + amount;
-        var balance = prev- deduct;
+        var deduct = perco+ charg;
+        var deduc=deduct+amount;
+        var balance = prev- deduc;
         const now  =  new Date();
         const value = date.format(now,'YYYY/MM/DD');
         console.log(balance);
@@ -401,7 +421,14 @@ router.get('/logout',(req,res)=>{
  )
  router.post('/dashboard/deposit_h', (req, res)=> {
       var deposit= req.body.amount;
-      res.redirect('/users/dashboard/payment')
+      var note ={
+        deposit: req.sanitize('amount').escape().trim(),
+        user_id: user_id
+      }
+      connection.query('INSERT INTO deposit SET ?', note, function(err, result)  {
+        dep_id=result.insertId;
+        res.redirect('/users/dashboard/payment');
+    })
 
  } )
  var smtpTransport = nodemailer.createTransport({
@@ -478,7 +505,22 @@ router.get('/logout',(req,res)=>{
  router.post('/dashboard/join', (req,res) =>{
      res.redirect('/users/dashboard/deposit_h')
  })
- 
+
+ router.post('/dashboard/payment', (req,res)=>{
+    const now  =  new Date();
+    const value = date.format(now,'YYYY/MM/DD');
+    var note = {
+        deposit_method: req.sanitize('pay_type').escape().trim(),
+        img: req.sanitize('proof').escape().trim(),
+        deposit_stat: "Pending Verification",
+        
+        date: value
+        }
+        connection.query('INSERT INTO deposit SET ? WHERE deposit_id='+dep_id, note, function(err, result)  {
+            res.redirect('/users/dashboard/transact');
+ })
+
+ });
 module.exports  = router;
 
 

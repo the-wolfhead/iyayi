@@ -22,34 +22,17 @@
 	<link rel="stylesheet" href="https://ac.coinagestun.net/dash/css/atlantis.min.css">
 	<link rel="stylesheet" href="https://ac.coinagestun.net/dash/css/customs.css">
 	<link rel="stylesheet" href="https://ac.coinagestun.net/dash/css/style.css">
-	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.21/af-2.3.5/b-1.6.3/b-flash-1.6.3/b-html5-1.6.3/b-print-1.6.3/r-2.2.5/datatables.min.css"/>
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.21/af-2.3.5/b-1.6.3/b-flash-1.6.3/b-html5-1.6.3/b-print-1.6.3/r-2.2.5/datatables.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 
 </head>
 <body data-background-color="dark">
     <div id="app">
          <!--PayPal-->
-        <script>
         
-            // Add your client ID and secret
-            var PAYPAL_CLIENT = 'AVBtU3h5-r3jo4RQdreB1k1oceT9fUNzJRcCtiST9TtVrEfYBVIGLf_5Ew3NJ0XMQiJ_l3Us3Br9fnmi';
-            var PAYPAL_SECRET = 'EOFG7L81QhUKSoBlIYacAaI-0CplcXnf2n-nDZ9j6xyj3zOFTpVbhoitbvlcqSELx5RYbsQ12sxw3ZOd';
-            
-            // Point your server to the PayPal API
-            var PAYPAL_ORDER_API = 'https://api.paypal.com/v2/checkout/orders/';
-        
-            </script>
-            
-            <script
-            src="https://www.paypal.com/sdk/js?client-id=AVBtU3h5-r3jo4RQdreB1k1oceT9fUNzJRcCtiST9TtVrEfYBVIGLf_5Ew3NJ0XMQiJ_l3Us3Br9fnmi">
-        </script>
         
         <!--/PayPal-->
             
-        <!--Start of Tawk.to Script-->
-        <script type="text/javascript">
-        {}
-        
-        </script>
+       
         <!--End of Tawk.to Script-->
         <div class="wrapper">
                     <div class="main-header">
@@ -271,8 +254,7 @@
 					<div class="mt-2 mb-4">
 					<h1 class="title1 text-light">Transactions on your account</h1>
 					</div>
-							
-										<div class="row mb-5">
+					<div class="row mb-5">
 					<div class="col text-center card p-4 bg-dark">
 					    
 					        <nav>
@@ -302,7 +284,15 @@
         										</tr> 
         									</thead> 
         									<tbody> 
-        										        									</tbody> 
+												<% obj.forEach(function(obj) { %>
+												<tr> 
+        											<th scope="row"><%=obj.deposit_id %></th>
+        											<td><%=obj.deposit %></td>
+        											<td><%=obj.deposit_method %></td> 
+        											<td><%=obj.deposit_stat %></td> 
+         											<td><%=obj.dater %></td> 
+        										</tr> 
+												<% }); %>				</tbody> 
         								</table>
         							</div>
 								</div>
@@ -322,14 +312,14 @@
         										</tr> 
         									</thead> 
         									<tbody> 
-												<% obj.forEach(function(obj) { %>
+												<% coli.forEach(function(coli) { %>
         										        										<tr> 
-        											<th scope="row"><%=obj.balance %></th>
-        											<td><%=obj.amount %></td>
-        											<td><%=obj.balance %></td> 
-        											<td><%=obj.payment_mode %></td> 
-        											<td><%=obj.payment_status %></td> 
-        											<td><%=obj.date %></td> 
+        											<th scope="row"><%=coli.payment_id %></th>
+        											<td><%=coli.amount %></td>
+        											<td><%=coli.balance %></td> 
+        											<td><%=coli.payment_mode %></td> 
+        											<td><%=coli.payment_status %></td> 
+        											<td><%=coli.date %></td> 
         										</tr> 
 												<% }); %>
         										        									</tbody> 
@@ -362,6 +352,7 @@
 						</div>
 					</div>
 				</div>
+				
 			</div>
 			<!-- Deposit Modal -->
 			<div id="depositModal" class="modal fade" role="dialog">
