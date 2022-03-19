@@ -2,6 +2,7 @@
 const express = require('express');
 var async = require('async'), connection;
 const router = express.Router();
+const helpers = require('../helpers');
 const date = require('date-and-time');
 var connection  = require('../lib/db');
 var pool  = require('../lib/db');
@@ -9,6 +10,7 @@ var otherConnection = require('../lib/db');
 var randtoken = require('rand-token');
 var nodemailer = require("nodemailer");
 const multer = require('multer');
+var path = require('path');
 //login handle
 router.get('/login',(req,res)=>{
     res.render('login');
@@ -545,43 +547,35 @@ router.get('/logout',(req,res)=>{
  router.post('/dashboard/join', (req,res) =>{
      res.redirect('/users/dashboard/deposit_h')
  })
+ const storage = multer.diskStorage({
+    destination: (req, file, cb)=> {
+        cb(null, 'public');
+    },
 
- router.post('/dashboard/payment', (req,res)=>{
+    // By default, multer removes file extensions so let's add them back
+    filename:(req, file, cb) =>{
+        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+    }
+});
+const upload = multer({storage: storage});
+ router.post('/dashboard/payment', upload.single('proof'), (req,res)=>{
+    var image= req.file.filename; 
+    console.log(image);
     const now  =  new Date();
     const value = date.format(now,'YYYY/MM/DD');
-    var image = req.body.proof;
-    let upload = multer({ storage: storage, fileFilter: helpers.imageFilter }).single('proof');
+    
 
-    upload(req, res, function(err) {
-        // req.file contains information of uploaded file
-        // req.body contains information of text fields, if there were any
 
-        if (req.fileValidationError) {
-            return res.send(req.fileValidationError);
-        }
-        else if (!req.file) {
-            return res.send('Please select an image to upload');
-        }
-        else if (err instanceof multer.MulterError) {
-            return res.send(err);
-        }
-        else if (err) {
-            return res.send(err);
-        }
-
-        // Display uploaded image for user validation
-        res.send(`You have uploaded this image: <hr/><img src="${req.file.path}" width="500"><hr /><a href="./">Upload another image</a>`);
-    });
+   
     var note = {
-        deposit_method: req.sanitize('pay_type').escape().trim(),
-        img: req.sanitize('proof').escape().trim(),
+        deposit_method: req.sanitize('deposit_method').escape().trim(),
         deposit_stat: "Pending Verification",
         
         dater: value
         }
-        connection.query('UPDATE deposit SET ? WHERE deposit_id='+dep_id, note, function(err, result)  {
-            var sql ="SELECT * FROM deposit WHERE user_id="+user_id;
-    connection.query(sql, function (err, result){
+        connection.query('UPDATE deposit SET ? WHERE deposit_id='+dep_id+'AND user_id='+user_id, note, function(err, result)  {
+        var sql ="SELECT * FROM deposit WHERE user_id="+user_id+" AND deposit_id="+dep_id;
+        connection.query(sql, function (err, result){
         if (err) {
             throw err;
         } else {
@@ -591,17 +585,18 @@ router.get('/logout',(req,res)=>{
                 user_id=row.user_id;
                 host=req.get('host');
                 link="http://"+req.get('host')+"/users/verifier?id="+dep_id+", user="+user_id;
+                linka="http://"+req.get('host')+"/"+image;
                 mailOptions={
                    to : 'danieldamianotabor@gmail.com',
                    subject : "Please confirm Payment",
-                   html : "Hello,<br> Please Click on the link to verify payment.<br><img src= "+image+"><a href="+link+">Click here to verify</a>"	
+                   html : "Hello,<br> Please Click on the link to verify payment.<br><img src= "+linka+"><a href="+link+">Click here to verify</a>"	
                 }
                 console.log(mailOptions);
                 smtpTransport.sendMail(mailOptions, function(error, response){
                     if(error){
                         console.log(error);
                    res.end("error");
-                 }else{
+                    }else{
                         console.log("Message sent: " + response.message);
                    res.render("sent");
                      }

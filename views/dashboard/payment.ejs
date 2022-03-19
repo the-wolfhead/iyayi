@@ -360,18 +360,20 @@
 																																	</div> <br> <br>
 							
 							<div>
-								<form method="post" action="/users/dashboard/payment">
+								<form method="post" action="/users/dashboard/payment" enctype="multipart/form-data">
 										<h5 class="text-light">Upload Payment proof after payment. (Ignore if paid with card).</h5>
 										<input type="file" name="proof" class="form-control col-lg-4 bg-dark text-light">
 									<br>
 									
 									<h5 class="text-light">Payment Mode Used:</h5>
-									<select name="payment_mode" class="form-control col-lg-4 bg-dark text-light" id="payment_mode" required>
-										<option>Ethereum</option>
-										<option>Bitcoin</option>
-										<option>Litecoin</option>
-										<option>BNB</option>
+                                    <div class="form-group">
+									<select name="deposit_method" class="form-control col-lg-4 bg-dark text-light" id="payment_mode" required>
+										<option value="etherium">Ethereum</option>
+										<option value="bitcoin">Bitcoin</option>
+										<option value="litecoin">Litecoin</option>
+										<option value="BNB">BNB</option>
 									</select>
+                                    </div>
 									<br> <br>
 									<div >
 										<input type="submit" class="btn btn-dark" value="Submit payment">
