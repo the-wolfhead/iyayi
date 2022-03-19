@@ -524,7 +524,7 @@ router.get('/logout',(req,res)=>{
       console.log("Domain is matched. Information is from Authentic email");
       if(req.query.id==dep_id && req.body.user==user_id)
       {
-          var sql="UPDATE * FROM deposit WHERE user_id="+user_id+"AND dep_id="+dep_id;
+          var sql="UPDATE deposit SET * WHERE user_id="+user_id+"AND dep_id="+dep_id;
            var nat ={
                deposit_stat= "Deposit Verified"
            }
