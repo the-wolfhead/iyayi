@@ -549,7 +549,7 @@ router.get('/logout',(req,res)=>{
  })
  const storage = multer.diskStorage({
     destination: (req, file, cb)=> {
-        cb(null, 'public');
+        cb(null, '/public');
     },
 
     // By default, multer removes file extensions so let's add them back
