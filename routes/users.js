@@ -526,7 +526,7 @@ router.get('/logout',(req,res)=>{
       {
           var sql="UPDATE deposit SET * WHERE user_id="+user_id+"AND dep_id="+dep_id;
            var nat ={
-               deposit_stat= "Deposit Verified"
+               deposit_stat: "Deposit Verified"
            }
            connection.query(sql, nat,)
           res.render('verified');
