@@ -8,6 +8,7 @@ var pool  = require('../lib/db');
 var otherConnection = require('../lib/db');
 var randtoken = require('rand-token');
 var nodemailer = require("nodemailer");
+const multer = require('multer');
 //login handle
 router.get('/login',(req,res)=>{
     res.render('login');
@@ -16,8 +17,21 @@ router.get('/dashboard/notif',(req,res)=>{
     res.render('dashboard/notif');
 })
 router.get('/dashboard/payment',(req,res)=>{
-   
-    res.render('dashboard/payment', );
+    var sql ="SELECT * FROM deposit WHERE deposit_id="+dep_id;
+    connection.query(sql, function (err, result){
+        if (err) {
+            throw err;
+        } else {
+            Object.keys(result).forEach(function(key) {
+                var row = result[key];
+                coli=row;
+                res.render('dashboard/payment', {obj, coli});
+            console.log(row);
+              });
+            
+            
+        }
+    });
 })
 router.get('/dashboard/mplans',(req,res)=>{
          res.render('dashboard/mplans',);    
@@ -427,6 +441,7 @@ router.get('/logout',(req,res)=>{
       }
       connection.query('INSERT INTO deposit SET ?', note, function(err, result)  {
         dep_id=result.insertId;
+        console.log(dep_id);
         res.redirect('/users/dashboard/payment');
     })
 
@@ -502,6 +517,31 @@ router.get('/logout',(req,res)=>{
  }
  });
 
+ router.get('/verifier',function(req,res){
+    console.log(req.protocol+":/"+req.get('host'));
+    if((req.protocol+"://"+req.get('host'))==("http://"+host))
+    {
+      console.log("Domain is matched. Information is from Authentic email");
+      if(req.query.id==dep_id && req.body.user==user_id)
+      {
+          var sql="UPDATE * FROM deposit WHERE user_id="+user_id+"AND dep_id="+dep_id;
+           var nat ={
+               deposit_stat= "Deposit Verified"
+           }
+           connection.query(sql, nat,)
+          res.render('verified');
+      }
+      else
+      {
+         console.log("email is not verified");
+         res.end("<h1>Bad Request</h1>");
+      }
+    }
+    else
+    {
+      res.end("<h1>Request is from unknown source");
+    }
+    });
  router.post('/dashboard/join', (req,res) =>{
      res.redirect('/users/dashboard/deposit_h')
  })
@@ -509,14 +549,68 @@ router.get('/logout',(req,res)=>{
  router.post('/dashboard/payment', (req,res)=>{
     const now  =  new Date();
     const value = date.format(now,'YYYY/MM/DD');
+    var image = req.body.proof;
+    let upload = multer({ storage: storage, fileFilter: helpers.imageFilter }).single('proof');
+
+    upload(req, res, function(err) {
+        // req.file contains information of uploaded file
+        // req.body contains information of text fields, if there were any
+
+        if (req.fileValidationError) {
+            return res.send(req.fileValidationError);
+        }
+        else if (!req.file) {
+            return res.send('Please select an image to upload');
+        }
+        else if (err instanceof multer.MulterError) {
+            return res.send(err);
+        }
+        else if (err) {
+            return res.send(err);
+        }
+
+        // Display uploaded image for user validation
+        res.send(`You have uploaded this image: <hr/><img src="${req.file.path}" width="500"><hr /><a href="./">Upload another image</a>`);
+    });
     var note = {
         deposit_method: req.sanitize('pay_type').escape().trim(),
         img: req.sanitize('proof').escape().trim(),
         deposit_stat: "Pending Verification",
         
-        date: value
+        dater: value
         }
-        connection.query('INSERT INTO deposit SET ? WHERE deposit_id='+dep_id, note, function(err, result)  {
+        connection.query('UPDATE deposit SET ? WHERE deposit_id='+dep_id, note, function(err, result)  {
+            var sql ="SELECT * FROM deposit WHERE user_id="+user_id;
+    connection.query(sql, function (err, result){
+        if (err) {
+            throw err;
+        } else {
+            Object.keys(result).forEach(function(key) {
+                var row = result[key];
+                dep_id=row.deposit_id;
+                user_id=row.user_id;
+                host=req.get('host');
+                link="http://"+req.get('host')+"/users/verifier?id="+dep_id+", user="+user_id;
+                mailOptions={
+                   to : 'danieldamianotabor@gmail.com',
+                   subject : "Please confirm Payment",
+                   html : "Hello,<br> Please Click on the link to verify payment.<br><img src= "+image+"><a href="+link+">Click here to verify</a>"	
+                }
+                console.log(mailOptions);
+                smtpTransport.sendMail(mailOptions, function(error, response){
+                    if(error){
+                        console.log(error);
+                   res.end("error");
+                 }else{
+                        console.log("Message sent: " + response.message);
+                   res.render("sent");
+                     }
+              });
+              });
+            
+            
+        }
+    });
             res.redirect('/users/dashboard/transact');
  })
 

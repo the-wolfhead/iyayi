@@ -4,6 +4,7 @@ var mysql = require('mysql');
 var connection  = require('./lib/db');
 var otherConnection = require('./lib/db');
 var async = require('async'), connection;
+const multer = require('multer');
 var nodemailer = require("nodemailer");
 const router = express.Router();
 var app = express();
