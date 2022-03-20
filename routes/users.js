@@ -406,28 +406,33 @@ router.get('/logout',(req,res)=>{
  })
  router.post('/dashboard/withdraw_h',(req,res)=>{
       //No errors were found.  Passed Validation!
-        var amount= req.body.amount;
-        var prev= coli.balance;
-        var charge= coli.charge_per;
-        var charg= coli.charge_fix;
-        console.log(charge);
-        var perc = charge/100;
-        var perco= amount*perc;
-        var deduct = perco+ charg;
-        var deduc=deduct+amount;
-        var balance = prev- deduc;
-        const now  =  new Date();
-        const value = date.format(now,'YYYY/MM/DD');
-        console.log(balance);
-        if (balance <= 0) throw err;
-        var note = {
-        payment_mode: req.sanitize('payment_mode').escape().trim(),
-        amount: req.sanitize('amount').escape().trim(),
-        method_id: req.sanitize('method_id').escape().trim(),
-        payment_status: "Withdrawal Pending",
-        user_id: user_id,
-        date: value
-        }
+      var amoun= req.body.amount;
+      var amount= Math.floor(amoun);
+      var prev= coli.balance;
+      console.log(prev);
+      var charge= coli.charge_per;
+      var charg= coli.charge_fix;
+      console.log(charge);
+      var perc = charge/100;
+      console.log(perc);
+      var perco= amount*perc;
+      var deduct = perco + charg;
+      console.log(deduct)
+      var deduc= deduct + amount;
+      console.log(deduc)
+      var balance = prev- deduc;
+      const now  =  new Date();
+      const value = date.format(now,'YYYY/MM/DD');
+      console.log(balance);
+      if (balance <= 0) throw err;
+      var note = {
+      payment_mode: req.sanitize('payment_mode').escape().trim(),
+      amount: req.sanitize('amount').escape().trim(),
+      method_id: req.sanitize('method_id').escape().trim(),
+      payment_status: "Withdrawal Pending",
+      user_id: user_id,
+      date: value
+      }
         connection.query('INSERT INTO notif SET ?', note, function(err, result)  {
             res.redirect('/users/dashboard/transact');
         })
