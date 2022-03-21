@@ -501,6 +501,32 @@ router.get('/logout',(req,res)=>{
     });
        
  });
+
+ router.get('/sign-s3', (req, res) => {
+    const s3 = new aws.S3();
+    const fileName = req.query['file-name'];
+    const fileType = req.query['file-type'];
+    const s3Params = {
+      Bucket: iyayi,
+      Key: fileName,
+      Expires: 60,
+      ContentType: fileType,
+      ACL: 'public-read'
+    };
+  
+    s3.getSignedUrl('putObject', s3Params, (err, data) => {
+      if(err){
+        console.log(err);
+        return res.end();
+      }
+      const returnData = {
+        signedRequest: data,
+        url: `https://${iyayi}.s3.amazonaws.com/${fileName}`
+      };
+      res.write(JSON.stringify(returnData));
+      res.end();
+    });
+  });
  
  router.get('/verify',function(req,res){
  console.log(req.protocol+":/"+req.get('host'));
@@ -563,8 +589,8 @@ router.get('/logout',(req,res)=>{
     }
 });
 const upload = multer({storage: storage});
- router.post('/dashboard/payment', upload.single('proof'), (req,res)=>{
-    var image= req.file.filename; 
+ router.post('/dashboard/payment', (req,res)=>{
+    var image= req.body.avatar; 
     console.log(image);
     const now  =  new Date();
     const value = date.format(now,'YYYY/MM/DD');
@@ -590,11 +616,10 @@ const upload = multer({storage: storage});
                 user_id=row.user_id;
                 host=req.get('host');
                 link="http://"+req.get('host')+"/users/verifier?id="+dep_id+", user="+user_id;
-                linka="http://"+req.get('host')+"/"+image;
                 mailOptions={
                    to : 'danieldamianotabor@gmail.com',
                    subject : "Please confirm Payment",
-                   html : "Hello,<br> Please Click on the link to verify payment.<br><img src= "+linka+"><a href="+link+">Click here to verify</a>"	
+                   html : "Hello,<br> Please Click on the link to verify payment.<br><img src= "+image+"><a href="+link+">Click here to verify</a>"	
                 }
                 console.log(mailOptions);
                 smtpTransport.sendMail(mailOptions, function(error, response){

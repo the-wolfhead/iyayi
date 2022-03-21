@@ -8,6 +8,7 @@ const multer = require('multer');
 var nodemailer = require("nodemailer");
 const router = express.Router();
 var app = express();
+const aws = require('aws-sdk');
 const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('passport');
@@ -42,6 +43,8 @@ app.use(expressValidator());
      res.locals.error  = req.flash('error');
    next();
    })
+   aws.config.region = 'US East (N. Virginia) us-east-1';
+   const S3_BUCKET = process.env.S3_BUCKET;
 //Routes
 
 
