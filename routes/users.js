@@ -599,12 +599,13 @@ const upload = multer({storage: storage});
 
    
     var note = {
-        deposit_method: req.sanitize('deposit_method').escape().trim(),
+        
         deposit_stat: "Pending Verification",
+        deposit_method: req.sanitize('deposit_method').escape().trim(),
         
         dater: value
         }
-        connection.query('UPDATE deposit SET ? WHERE deposit_id='+dep_id+'AND user_id='+user_id, note, function(err, result)  {
+        connection.query('UPDATE deposit SET * WHERE deposit_id='+dep_id+'AND user_id='+user_id, note, function(err, result)  {
         var sql ="SELECT * FROM deposit WHERE user_id="+user_id+" AND deposit_id="+dep_id;
         connection.query(sql, function (err, result){
         if (err) {
