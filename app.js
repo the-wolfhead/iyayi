@@ -43,8 +43,8 @@ app.use(expressValidator());
      res.locals.error  = req.flash('error');
    next();
    })
-   aws.config.region = 'US East (N. Virginia) us-east-1';
-   const S3_BUCKET = process.env.S3_BUCKET;
+   aws.config.region = 'us-east-1';
+   const iyayi = process.env.iyayi;
 //Routes
 
 

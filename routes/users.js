@@ -11,6 +11,7 @@ var randtoken = require('rand-token');
 var nodemailer = require("nodemailer");
 const multer = require('multer');
 var path = require('path');
+const iyayi = process.env.iyayi;
 //login handle
 router.get('/login',(req,res)=>{
     res.render('login');
