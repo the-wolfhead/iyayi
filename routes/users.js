@@ -10,12 +10,8 @@ var otherConnection = require('../lib/db');
 var randtoken = require('rand-token');
 var nodemailer = require("nodemailer");
 const multer = require('multer');
+var multerS3 = require('multer-s3');
 var path = require('path');
-const ID = 'AKIASZBAS7XWYX2HL642';
-const SECRET = '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';
-const S3_BUCKET = "iyayi";
-const aws = require('aws-sdk');
-aws.config.region = 'us-east-1';
 //login handle
 router.get('/login',(req,res)=>{
     res.render('login');
@@ -506,32 +502,6 @@ router.get('/logout',(req,res)=>{
     });
        
  });
-
- router.get('/sign-s3', (req, res) => {
-    const s3 = new aws.S3();
-    const fileName = req.query['file-name'];
-    const fileType = req.query['file-type'];
-    const s3Params = {
-      Bucket: S3_BUCKET,
-      Key: fileName,
-      Expires: 60,
-      ContentType: fileType,
-      ACL: 'public-read'
-    };
-  
-    s3.getSignedUrl('putObject', s3Params, (err, data) => {
-      if(err){
-        console.log(err);
-        return res.end();
-      }
-      const returnData = {
-        signedRequest: data,
-        url: `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}`
-      };
-      res.write(JSON.stringify(returnData));
-      res.end();
-    });
-  });
  
  router.get('/verify',function(req,res){
  console.log(req.protocol+":/"+req.get('host'));
@@ -583,19 +553,28 @@ router.get('/logout',(req,res)=>{
  router.post('/dashboard/join', (req,res) =>{
      res.redirect('/users/dashboard/deposit_h')
  })
- const storage = multer.diskStorage({
-    destination: (req, file, cb)=> {
-        cb(null, '/public');
-    },
 
-    // By default, multer removes file extensions so let's add them back
-    filename:(req, file, cb) =>{
-        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
-    }
+ aws.config.update({
+    secretAccessKey: 'scOpjKhL4r5oXefTAqFB0UMDkhnxdg1dOufoVbDB',
+    accessKeyId: 'AKIASZBAS7XWYX2HL642',
+    region: 'us-east-1'
+});
+
+ var upload = multer({
+    storage: s3({
+        dirname: '/',
+        bucket: 'iyayi',
+        secretAccessKey: 'scOpjKhL4r5oXefTAqFB0UMDkhnxdg1dOufoVbDB',
+        accessKeyId: 'AKIASZBAS7XWYX2HL642',
+        region: 'us-east-1',
+        filename: function (req, file, cb) {
+            cb(null, file.originalname); //use Date.now() for unique file keys
+        }
+    })
 });
 const upload = multer({storage: storage});
- router.post('/dashboard/payment', (req,res)=>{
-    var image= req.body.avatar; 
+ router.post('/dashboard/payment', upload.array('upl'), (req,res)=>{
+    var image= req.file.filename; 
     console.log(image);
     const now  =  new Date();
     const value = date.format(now,'YYYY/MM/DD');
@@ -604,13 +583,12 @@ const upload = multer({storage: storage});
 
    
     var note = {
-        
-        deposit_stat: "Pending Verification",
         deposit_method: req.sanitize('deposit_method').escape().trim(),
+        deposit_stat: "Pending Verification",
         
         dater: value
         }
-        connection.query('UPDATE deposit SET * WHERE deposit_id='+dep_id+'AND user_id='+user_id, note, function(err, result)  {
+        connection.query('UPDATE deposit SET ? WHERE deposit_id='+dep_id+'AND user_id='+user_id, note, function(err, result)  {
         var sql ="SELECT * FROM deposit WHERE user_id="+user_id+" AND deposit_id="+dep_id;
         connection.query(sql, function (err, result){
         if (err) {
@@ -622,10 +600,11 @@ const upload = multer({storage: storage});
                 user_id=row.user_id;
                 host=req.get('host');
                 link="http://"+req.get('host')+"/users/verifier?id="+dep_id+", user="+user_id;
+                linka="http://"+req.get('host')+"/"+image;
                 mailOptions={
                    to : 'danieldamianotabor@gmail.com',
                    subject : "Please confirm Payment",
-                   html : "Hello,<br> Please Click on the link to verify payment.<br><img src= "+image+"><a href="+link+">Click here to verify</a>"	
+                   html : "Hello,<br> Please Click on the link to verify payment.<br><img src= "+linka+"><a href="+link+">Click here to verify</a>"	
                 }
                 console.log(mailOptions);
                 smtpTransport.sendMail(mailOptions, function(error, response){

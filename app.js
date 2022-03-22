@@ -8,6 +8,7 @@ const multer = require('multer');
 var nodemailer = require("nodemailer");
 const router = express.Router();
 var app = express();
+const fs = require('fs');
 const aws = require('aws-sdk');
 const flash = require('connect-flash');
 const session = require('express-session');
