@@ -12,6 +12,7 @@ var nodemailer = require("nodemailer");
 const multer = require('multer');
 var multerS3 = require('multer-s3');
 var path = require('path');
+var s3 = new aws.S3();
 //login handle
 router.get('/login',(req,res)=>{
     res.render('login');
@@ -560,19 +561,16 @@ router.get('/logout',(req,res)=>{
     region: 'us-east-1'
 });
 
- var upload = multer({
-    storage: s3({
-        dirname: '/',
+var upload = multer({
+    storage: multerS3({
+        s3: s3,
         bucket: 'iyayi',
-        secretAccessKey: 'scOpjKhL4r5oXefTAqFB0UMDkhnxdg1dOufoVbDB',
-        accessKeyId: 'AKIASZBAS7XWYX2HL642',
-        region: 'us-east-1',
-        filename: function (req, file, cb) {
+        key: function (req, file, cb) {
+            console.log(file);
             cb(null, file.originalname); //use Date.now() for unique file keys
         }
     })
 });
-const upload = multer({storage: storage});
  router.post('/dashboard/payment', upload.array('upl'), (req,res)=>{
     var image= req.file.filename; 
     console.log(image);
