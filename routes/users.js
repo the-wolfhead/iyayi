@@ -11,7 +11,11 @@ var randtoken = require('rand-token');
 var nodemailer = require("nodemailer");
 const multer = require('multer');
 var path = require('path');
-const iyayi = process.env.iyayi;
+const ID = 'AKIASZBAS7XWYX2HL642';
+const SECRET = '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';
+const S3_BUCKET = "iyayi";
+const aws = require('aws-sdk');
+aws.config.region = 'us-east-1';
 //login handle
 router.get('/login',(req,res)=>{
     res.render('login');
@@ -508,7 +512,7 @@ router.get('/logout',(req,res)=>{
     const fileName = req.query['file-name'];
     const fileType = req.query['file-type'];
     const s3Params = {
-      Bucket: iyayi,
+      Bucket: S3_BUCKET,
       Key: fileName,
       Expires: 60,
       ContentType: fileType,
@@ -522,7 +526,7 @@ router.get('/logout',(req,res)=>{
       }
       const returnData = {
         signedRequest: data,
-        url: `https://${iyayi}.s3.amazonaws.com/${fileName}`
+        url: `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}`
       };
       res.write(JSON.stringify(returnData));
       res.end();

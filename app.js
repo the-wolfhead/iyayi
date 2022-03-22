@@ -44,7 +44,7 @@ app.use(expressValidator());
    next();
    })
    aws.config.region = 'us-east-1';
-   const iyayi = process.env.iyayi;
+   const S3_BUCKET = process.env.S3_BUCKET;
 //Routes
 
 
