@@ -11,6 +11,7 @@ var randtoken = require('rand-token');
 var nodemailer = require("nodemailer");
 const multer = require('multer');
 var multerS3 = require('multer-s3');
+var aws = require('aws-sdk')
 var path = require('path');
 var s3 = new aws.S3();
 //login handle
