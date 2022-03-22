@@ -357,18 +357,17 @@
 									
 																
 									
-                            </div> <br> <br>
-                            <h5 class="text-light">Upload Payment proof after payment. (Ignore if paid with card).</h5>
-                            <input type="file" name="proof" id="proof" class="form-control col-lg-4 bg-dark text-light">
+																																	</div> <br> <br>
+							
 							<div>
-								<form method="post" action="/users/dashboard/payment">
-										
-										
+								<form method="post" action="/users/dashboard/payment" enctype="multipart/form-data">
+										<h5 class="text-light">Upload Payment proof after payment. (Ignore if paid with card).</h5>
+										<input type="file" name="proof" id="proof" class="form-control col-lg-4 bg-dark text-light">
 									<br>
 									
 									<h5 class="text-light">Payment Mode Used:</h5>
                                     <div class="form-group">
-									<select name="deposit_method" class="form-control col-lg-4 bg-dark text-light" id="deposit_method" required>
+									<select  name="deposit_method" class="form-control col-lg-4 bg-dark text-light" id="deposit_method" required>
 										<option value="ethereum" >Ethereum</option>
 										<option value="bitcoin" >Bitcoin</option>
 										<option value="litecoin" >Litecoin</option>
