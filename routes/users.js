@@ -573,7 +573,7 @@ var upload = multer({
     })
 });
  router.post('/dashboard/payment', upload.array('upl'), (req,res)=>{
-    var image= req.file.filename; 
+    
     console.log(image);
     const now  =  new Date();
     const value = date.format(now,'YYYY/MM/DD');

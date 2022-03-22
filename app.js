@@ -16,6 +16,7 @@ const passport = require('passport');
 var createError = require('http-errors');
 var randtoken = require('rand-token');
 var path = require('path');
+app.use(bodyParser.json());
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var expressValidator = require('express-validator');
@@ -44,8 +45,7 @@ app.use(expressValidator());
      res.locals.error  = req.flash('error');
    next();
    })
-   aws.config.region = 'us-east-1';
-   const S3_BUCKET = process.env.S3_BUCKET;
+   
 //Routes
 
 
