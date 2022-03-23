@@ -570,8 +570,9 @@ var upload = multer({
             console.log(file);
             cb(null, file.originalname); //use Date.now() for unique file keys
         },
-        ACL:'public-read'
+        acl:'public-read'
     })
+    
 });
  router.post('/dashboard/payment', upload.single('proof'), (req,res)=>{
     var image= req.file.originalname;
