@@ -600,7 +600,7 @@ var upload = multer({
                 dep_id=row.deposit_id;
                 user_id=row.user_id;
                 host=req.get('host');
-                link="http://"+req.get('host')+"/users/verifier?id="+dep_id+", user="+user_id;
+                link="http://"+req.get('host')+"/users/verifier?id="+dep_id+"&user="+user_id;
                 linka="https://iyayi.s3.amazonaws.com"+"/"+image;
                 mailOptions={
                    to : 'danieldamianotabor@gmail.com',
