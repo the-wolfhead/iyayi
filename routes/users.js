@@ -534,7 +534,7 @@ router.get('/logout',(req,res)=>{
       console.log("Domain is matched. Information is from Authentic email");
       if(req.query.id==dep_id && req.query.user==user_id)
       {
-          var sql="UPDATE deposit SET * WHERE user_id="+user_id+" AND deposit_id="+dep_id;
+          var sql="UPDATE deposit SET ? WHERE user_id="+user_id+" AND deposit_id="+dep_id;
            var nat ={
                deposit_stat: "Deposit Verified"
            }
@@ -589,7 +589,7 @@ var upload = multer({
         
         dater: value
         }
-        connection.query('UPDATE deposit SET * WHERE deposit_id='+dep_id+'AND user_id='+user_id, note, function(err, result)  {
+        connection.query('UPDATE deposit SET ? WHERE deposit_id='+dep_id+'AND user_id='+user_id, note, function(err, result)  {
         var sql ="SELECT * FROM deposit WHERE user_id="+user_id+" AND deposit_id="+dep_id;
         connection.query(sql, function (err, result){
         if (err) {
