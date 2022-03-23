@@ -566,11 +566,11 @@ var upload = multer({
     storage: multerS3({
         s3: s3,
         bucket: 'iyayi',
-        ACL:'public-read',
         key: function (req, file, cb) {
             console.log(file);
             cb(null, file.originalname); //use Date.now() for unique file keys
-        }
+        },
+        ACL:'public-read'
     })
 });
  router.post('/dashboard/payment', upload.single('proof'), (req,res)=>{
@@ -588,7 +588,7 @@ var upload = multer({
         
         dater: value
         }
-        connection.query('UPDATE deposit SET ? WHERE deposit_id='+dep_id+'AND user_id='+user_id, note, function(err, result)  {
+        connection.query('UPDATE deposit SET * WHERE deposit_id='+dep_id+'AND user_id='+user_id, note, function(err, result)  {
         var sql ="SELECT * FROM deposit WHERE user_id="+user_id+" AND deposit_id="+dep_id;
         connection.query(sql, function (err, result){
         if (err) {
@@ -612,7 +612,7 @@ var upload = multer({
                         console.log(error);
                    res.end("error");
                     }else{
-                        console.log("Message sent: " + response.message);
+                        console.log("Message sent: ");
                    res.render("sent");
                      }
               });
