@@ -16,7 +16,7 @@ const passport = require('passport');
 var createError = require('http-errors');
 var randtoken = require('rand-token');
 var path = require('path');
-app.use(bodyParser.json());
+
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var expressValidator = require('express-validator');
@@ -52,7 +52,7 @@ app.use(expressValidator());
 /*--------------------Routing Over----------------------------*/
 
 
-
+app.use(bodyParser.json());
 app.use('/',require('./routes/index'));
 app.use('/users',require('./routes/users'));
 app.use(express.static(path.join(__dirname, "/views/CSS")));
