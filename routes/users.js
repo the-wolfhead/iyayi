@@ -117,7 +117,18 @@ router.get('/dashboard/withdraw',(req,res)=>{
     res.render('dashboard/withdraw');
 })
 router.get('/dashboard/deposit_h',(req,res)=>{
-    res.render('dashboard/deposit_h');
+    var sqo ="SELECT * FROM deposit WHERE user_id="+user_id;
+                connection.query(sqo, function (err, resu){
+                    if (err) {
+                        throw err;
+                    } else {
+                        obj = resu;
+                            res.render('dashboard/deposit_h', {obj, coli});
+                        
+                        
+                        
+                    }
+                });
 })
 router.get('/register',(req,res)=>{
     res.render('register')
