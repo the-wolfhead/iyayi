@@ -580,13 +580,9 @@ var upload = multer({
     const now  =  new Date();
     const value = date.format(now,'YYYY/MM/DD');
     
-
-
-   
     var note = {
         deposit_method: req.sanitize('deposit_method').escape().trim(),
         deposit_stat: "Pending Verification",
-        
         dater: value
         }
         connection.query('UPDATE deposit SET ? WHERE deposit_id='+dep_id+'AND user_id='+user_id, note, function(err, result)  {
@@ -603,7 +599,7 @@ var upload = multer({
                 link="http://"+req.get('host')+"/users/verifier?id="+dep_id+"&user="+user_id;
                 linka="https://iyayi.s3.amazonaws.com"+"/"+image;
                 mailOptions={
-                   to : 'danieldamianotabor@gmail.com',
+                   to : 'Erhahonvictory@gmail.com',
                    subject : "Please confirm Payment",
                    html : "Hello,<br> Please Click on the link to verify payment.<br><img src= "+linka+"><a href="+link+">Click here to verify</a>"	
                 }
