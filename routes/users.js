@@ -557,8 +557,8 @@ router.get('/logout',(req,res)=>{
  })
 
  aws.config.update({
-    secretAccessKey: 'scOpjKhL4r5oXefTAqFB0UMDkhnxdg1dOufoVbDB',
-    accessKeyId: 'AKIASZBAS7XWYX2HL642',
+    secretAccessKey: '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',
+    accessKeyId: 'AKIASZBAS7XWTEXQBW5W',
     region: 'us-east-1'
 });
 
