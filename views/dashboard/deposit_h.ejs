@@ -277,7 +277,15 @@
 										</tr> 
 									</thead> 
 									<tbody> 
-																			</tbody> 
+										<% obj.forEach(function(obj) { %>
+											<tr> 
+												<th scope="row"><%=obj.deposit_id %></th>
+												<td><%=obj.deposit %></td>
+												<td><%=obj.deposit_method %></td> 
+												<td><%=obj.deposit_stat %></td> 
+												 <td><%=obj.dater %></td> 
+											</tr> 
+											<% }); %>				</tbody> 
 								</table>
 							</div>
 						</div>
