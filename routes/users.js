@@ -572,7 +572,7 @@ var upload = multer({
         }
     })
 });
- router.post('/dashboard/payment', upload.array('proof', 1), (req,res)=>{
+ router.post('/dashboard/payment', upload.single('proof'), (req,res)=>{
     var image= req.file.originalname;
     console.log(image);
     const now  =  new Date();
