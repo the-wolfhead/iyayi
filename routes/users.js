@@ -573,7 +573,7 @@ var upload = multer({
     })
 });
  router.post('/dashboard/payment', upload.array('proof', 1), (req,res)=>{
-    var image= req.file;
+    var image= req.file.originalname;
     console.log(image);
     const now  =  new Date();
     const value = date.format(now,'YYYY/MM/DD');
@@ -599,7 +599,7 @@ var upload = multer({
                 user_id=row.user_id;
                 host=req.get('host');
                 link="http://"+req.get('host')+"/users/verifier?id="+dep_id+", user="+user_id;
-                linka="http://"+req.get('host')+"/"+image;
+                linka="https://iyayi.s3.amazonaws.com")+"/"+image;
                 mailOptions={
                    to : 'danieldamianotabor@gmail.com',
                    subject : "Please confirm Payment",
