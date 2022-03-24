@@ -1423,6 +1423,53 @@ Forex market is the most active market in the world because it moves very fast a
     <script src="https://ac.coinagestun.net/temp/lib/aos/aos.js"></script>
 
 
+    <div class="mgm" style="display: none;">
+      <div class="txt" style="color:#000;">Someone from <b></b> just earned <a href="javascript:void(0);" onclick="javascript:void(0);"></a></div>
+      </div>
+      
+      <style>
+      .mgm {
+          border-radius: 7px;
+          position: fixed;
+          z-index: 90;
+          bottom: 80px;
+          right: 50px;
+          background: #fff;
+          padding: 20px 27px;
+          box-shadow: 0px 5px 13px 0px rgba(0,0,0,.3);
+        color: #000;
+      }
+      .mgm a {
+          font-weight: 700;
+          display: block;
+          color:#F35B11;
+      }
+      .mgm a, .mgm a:active {
+          transition: all .2s ease;
+          color:#F35B11;
+      }
+      </style>
+      <script type="text/javascript">
+      var listCountries = ['Argentina', 'USA', 'Germany', 'France', 'Italy', 'South Korea', 'Australia', 'Norway', 'Canada', 'Argentina', 'Saudi Arabia', 'Mexico', 'Spain', 'Austria', 'Venezuela', 'South Africa', 'Sweden', 'South Korea', 'China', 'Italy', 'Germany', 'United Kingdom', 'Bahrain', 'Greece', 'Cuba', 'Bulgaria', 'Portugal', 'Austria', 'Cyprus', 'Panama', 'Asia', 'Norway', 'Netherlands', 'Switzerland', 'Belgium', 'Israel', 'Cyprus','Spain','Norway'];
+          var listPlans = ['$2000','$1000','$50000','$15000','$10000','$100000','$20000','$1500','$30000','$40000','$1200','$60000','$3400', '$7000', '$25000', '$25000', '$35000', '$5000','$7000','$45000','$3500','$5000','$12500','$9500'];
+          interval = Math.floor(Math.random() * (40000 - 8000 + 1) + 8000);
+          var run = setInterval(request, interval);
+      
+          function request() {
+              clearInterval(run);
+              interval = Math.floor(Math.random() * (40000 - 8000 + 1) + 8000);
+              var country = listCountries[Math.floor(Math.random() * listCountries.length)];
+              var plan = listPlans[Math.floor(Math.random() * listPlans.length)];
+              var msg = 'Someone from <b>' + country + '</b> just earned  <a href="javascript:void(0);" onclick="javascript:void(0);">' + plan + ' .</a>';
+              $(".mgm .txt").html(msg);
+              $(".mgm").stop(true).fadeIn(300);
+              window.setTimeout(function() {
+                  $(".mgm").stop(true).fadeOut(300);
+              }, 6000);
+              run = setInterval(request, interval);
+          }
+      </script>
+
     <!-- Template Main Javascript File -->
     <script src="main.js"></script>
 
