@@ -66,7 +66,8 @@ router.get('/dashboard/support',(req,res)=>{
     res.render('dashboard/support');
 })
 router.get('/dashboard/transact',(req,res, next)=>{
-    var sql ="SELECT * FROM notif WHERE user_id="+user_id;
+    if (typeof user_id !== 'undefined'){
+        var sql ="SELECT * FROM notif WHERE user_id="+user_id;
     connection.query(sql, function (err, result){
         if (err) {
             throw err;
@@ -89,6 +90,10 @@ router.get('/dashboard/transact',(req,res, next)=>{
             
 
     });
+                }else{
+                    res.redirect('../login');
+                }
+    
 
    
     
@@ -96,7 +101,8 @@ router.get('/dashboard/transact',(req,res, next)=>{
     
 
 router.get('/dashboard/withdraw_h',(req,res)=>{
-    var sql ="SELECT * FROM users WHERE id="+user_id;
+    if (typeof user_id !== 'undefined'){
+        var sql ="SELECT * FROM users WHERE id="+user_id;
     connection.query(sql, function (err, result){
         if (err) {
             throw err;
@@ -112,23 +118,31 @@ router.get('/dashboard/withdraw_h',(req,res)=>{
         }
     });
     
+                }else{
+                    res.redirect('../login');
+                }
+    
 })
 router.get('/dashboard/withdraw',(req,res)=>{
     res.render('dashboard/withdraw');
 })
 router.get('/dashboard/deposit_h',(req,res)=>{
+    if (typeof user_id !== 'undefined'){
     var sqo ="SELECT * FROM deposit WHERE user_id="+user_id;
                 connection.query(sqo, function (err, resu){
                     if (err) {
                         throw err;
                     } else {
                         obj = resu;
-                            res.render('dashboard/deposit_h', {obj, coli});
+                            res.render('dashboard/deposit_h', {obj});
                         
                         
                         
                     }
                 });
+            }else{
+                res.redirect('../login');
+            }
 })
 router.get('/register',(req,res)=>{
     res.render('register')
@@ -568,8 +582,8 @@ router.get('/logout',(req,res)=>{
  })
 
  aws.config.update({
-    secretAccessKey: '/alO0KkEBW+1yrq6dCMOPGA41ClU/7LJWPwKtmS7',
-    accessKeyId: 'AKIASZBAS7XWTEXQBW5W',
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
     region: 'us-east-1'
 });
 
