@@ -35,6 +35,7 @@
     "netlify-lambda": "^2.0.15",
     "nodejs-nodemailer-outlook": "^1.2.4",
     "nodemailer": "^6.7.2",
+    "nodemon": "^2.0.19",
     "passport": "^0.5.2",
     "passport-local": "^1.0.0",
     "promise-mysql": "^5.1.0",
