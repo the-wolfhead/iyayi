@@ -147,20 +147,20 @@ router.get('/dashboard/deposit_h',(req,res)=>{
 router.get('/register',(req,res)=>{
     res.render('register')
     })
-    router.get('/admin',(req,res)=>{
-        var sql = "SELECT * FROM users";
-        connection.query(sql, function (err, result) {
-            if (err) {
-                throw err;
-            } else {
-                obj = result;
-                res.render('admin', {obj});
-                console.log(obj.first);
-            }
+router.get('/admin',(req,res)=>{
+    var sql = "SELECT * FROM users";
+    connection.query(sql, function (err, result) {
+        if (err) {
+            throw err;
+        } else {
+            obj = result;
+            res.render('admin', {obj});
+            console.log(obj.first);
+        }
 
-            
-        });
-        })
+        
+    });
+    })
 router.get('/deleteuser/(:id)', function(req, res, next){
             connection.query('DELETE FROM users WHERE id = ' + req.params.id, function(err, rows, fields) {
                 if (err) throw err;
@@ -481,15 +481,19 @@ router.get('/logout',(req,res)=>{
     })
 
  } )
- var smtpTransport = nodemailer.createTransport({
-    service: "Gmail",
+ const transporter = nodemailer.createTransport({
+    host: "smtp-mail.outlook.com", 
+    secureConnection: false, 
+    port: 587,
+    tls: {
+       ciphers:'SSLv3',
+       rejectUnauthorized: false
+    },
     auth: {
-        user: "swift.trading.crypto@gmail.com",
-        pass: "Milano12345"
+        user: 'swift.trading2015@outlook.com',
+        pass: 'milano12345'
     }
- });
- var rand,mailOptions,host,link;
- /*------------------SMTP Over-----------------------------*/
+  });-------------------------*/
  
  /*------------------Routing Started ------------------------*/
  
@@ -508,12 +512,13 @@ router.get('/logout',(req,res)=>{
                 host=req.get('host');
                 link="http://"+req.get('host')+"/users/verify?id="+rand;
                 mailOptions={
+                    from: "SwiftXchange <swift.trading2015@outlook.com>",
                    to : email,
                    subject : "Please confirm your Email account",
                    html : "Hello,<br> Please Click on the link to verify your email.<br><a href="+link+">Click here to verify</a>"	
                 }
                 console.log(mailOptions);
-                smtpTransport.sendMail(mailOptions, function(error, response){
+                transporter.sendMail(mailOptions, function(error, response){
                     if(error){
                         console.log(error);
                    res.end("error");

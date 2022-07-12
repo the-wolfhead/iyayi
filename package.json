@@ -33,6 +33,7 @@
     "multer-s3": "^2.10.0",
     "mysql": "^2.18.1",
     "netlify-lambda": "^2.0.15",
+    "nodejs-nodemailer-outlook": "^1.2.4",
     "nodemailer": "^6.7.2",
     "passport": "^0.5.2",
     "passport-local": "^1.0.0",
