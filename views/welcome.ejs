@@ -955,7 +955,7 @@
 
         <header class="section-header">
           <h3>About SwiftXchange</h3>
-          <p>ScrillCassh give you the possibility to invest in Forex through the management of a trader.
+          <p>SwiftXchange give you the possibility to invest in Forex through the management of a trader.
 Forex market is the most active market in the world because it moves very fast and is more liquid than others. For all this the transaction costs are lower and it is becoming very popular for investors.Otherwise forex market can be dangerous for who do not have the needed experience and sophisticated knowledge. That’s why ScrillCash gives the possibility to take advantage of the expertise of an experienced forex trader.</p>
         </header>
 
@@ -1115,7 +1115,7 @@ Forex market is the most active market in the world because it moves very fast a
 
         <header class="section-header">
           <h3>LATEST TRANSACTIONS</h3>
-          <p>ScrillCash team is involved in highly profitable trade and willing to provide this service for many years. I</p>
+          <p>The SwiftXchange team is involved in highly profitable trade and willing to provide this service for many years. I</p>
         </header>
         <div class="row">
           <div class="col-lg-12 col-md-6"></div>
@@ -1469,6 +1469,26 @@ Forex market is the most active market in the world because it moves very fast a
               run = setInterval(request, interval);
           }
       </script>
+        <script type="text/javascript">
+          var listNames = ['Tyler', 'Hakeem', 'Lenard', 'Renault', 'Martinez', 'Sophia', 'Rodriguez', 'Charles', 'Jonah', 'Vladimir', 'Iqbal', 'Aakshay', 'Dima', 'Austria', 'Venezuela', 'South Africa', 'Sweden', 'South Korea', 'China', 'Italy', 'Germany', 'United Kingdom', 'Bahrain', 'Greece', 'Cuba', 'Bulgaria', 'Portugal', 'Austria', 'Cyprus', 'Panama', 'Asia', 'Norway', 'Netherlands', 'Switzerland', 'Belgium', 'Israel', 'Cyprus','Spain','Bjornsson'];
+              var listPlans = ['$2000','$1000','$50000','$15000','$10000','$100000','$20000','$1500','$30000','$40000','$1200','$60000','$3400', '$7000', '$25000', '$25000', '$35000', '$5000','$7000','$45000','$3500','$5000','$12500','$9500'];
+              interval = Math.floor(Math.random() * (40000 - 8000 + 1) + 8000);
+              var run = setInterval(request, interval);
+          
+              function request() {
+                  clearInterval(run);
+                  interval = Math.floor(Math.random() * (40000 - 8000 + 1) + 8000);
+                  var country = listCountries[Math.floor(Math.random() * listCountries.length)];
+                  var plan = listPlans[Math.floor(Math.random() * listPlans.length)];
+                  var msg = 'Someone from <b>' + country + '</b> just earned  <a href="javascript:void(0);" onclick="javascript:void(0);">' + plan + ' .</a>';
+                  $(".mgm .txt").html(msg);
+                  $(".mgm").stop(true).fadeIn(300);
+                  window.setTimeout(function() {
+                      $(".mgm").stop(true).fadeOut(300);
+                  }, 6000);
+                  run = setInterval(request, interval);
+              }
+          </script>
 
     <!-- Template Main Javascript File -->
     <script src="main.js"></script>
