@@ -493,7 +493,7 @@ router.get('/logout',(req,res)=>{
         user: 'swift.trading2015@outlook.com',
         pass: 'milano12345'
     }
-  });-------------------------*/
+  });
  
  /*------------------Routing Started ------------------------*/
  
