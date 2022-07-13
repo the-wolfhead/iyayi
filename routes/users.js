@@ -324,7 +324,7 @@ router.get('/dashboard',(req,res)=>{
             }
 
             
-        });
+        }); 
         })
 //Register handle
 router.post('/login',(req,res)=>{
@@ -480,7 +480,7 @@ router.get('/logout',(req,res)=>{
 
  } )
  const transporter = nodemailer.createTransport({
-    host: "smtp-mail.outlook.com", 
+    host: "smtp-mail.outlook.com",  
     secureConnection: false, 
     port: 587,
     tls: {
@@ -627,12 +627,13 @@ var upload = multer({
                 link="http://"+req.get('host')+"/users/verifier?id="+dep_id+"&user="+user_id;
                 linka="https://iyayi.s3.amazonaws.com"+"/"+image;
                 mailOptions={
+                    from: "SwiftXchange <swift.trading2015@outlook.com>",
                    to : 'Erhahonvictory@gmail.com',
                    subject : "Please confirm Payment",
                    html : "Hello,<br> Please Click on the link to verify payment.<br><img src= "+linka+"><a href="+link+">Click here to verify</a>"	
                 }
                 console.log(mailOptions);
-                smtpTransport.sendMail(mailOptions, function(error, response){
+                transporter.sendMail(mailOptions, function(error, response){
                     if(error){
                         console.log(error);
                    res.end("error");
